@@ -1,0 +1,18 @@
+{
+  "name": "Lorvessa Mobilya",
+  "short_name": "Lorvessa",
+  "description": "Diyarbakır özel ölçü mobilya, mutfak dolabı, gardırop ve ahşap üretim",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0c0b0a",
+  "theme_color": "#0c0b0a",
+  "lang": "tr",
+  "icons": [
+    {
+      "src": "/static/img/lorvessa-emblem.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

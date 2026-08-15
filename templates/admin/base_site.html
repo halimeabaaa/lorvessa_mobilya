@@ -1,0 +1,30 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | Lorvessa Yönetim{% endblock %}
+
+{% block extrastyle %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'admin/css/lorenza_admin.css' %}">
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+  <a href="{% url 'admin:index' %}">Lorvessa Mobilya</a>
+</h1>
+{% endblock %}
+
+{% block userlinks %}
+{% if site_url %}
+  <a class="lorenza-view-site" href="{{ site_url }}" target="_blank" rel="noopener">Siteyi Gör</a> /
+{% endif %}
+{% if user.has_usable_password %}
+  <a href="{% url 'admin:password_change' %}">Şifre değiştir</a> /
+{% endif %}
+<form id="logout-form" method="post" action="{% url 'admin:logout' %}" style="display:inline;">
+  {% csrf_token %}
+  <button type="submit" style="background:none;border:none;padding:0;color:inherit;font:inherit;cursor:pointer;letter-spacing:0.04em;">Çıkış</button>
+</form>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

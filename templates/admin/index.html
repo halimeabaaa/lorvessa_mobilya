@@ -1,0 +1,83 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block content %}
+<div class="lorenza-dashboard">
+  <div class="lorenza-intro">
+    <h2>Site Yönetimi</h2>
+    <p>
+      Buradan anasayfa slider’ı, hakkımızda metni, galeri ve iletişim bilgilerini
+      düzenleyebilirsiniz. Değişiklikler kaydedildiğinde sitede hemen görünür.
+    </p>
+  </div>
+
+  <div class="lorenza-cards">
+    {% if perms.pages.view_sliderimage or perms.pages.change_sliderimage %}
+    <a class="lorenza-card" href="{% url 'admin:pages_sliderimage_changelist' %}">
+      <span class="card-label">Anasayfa</span>
+      <h3>Slider Resimleri</h3>
+      <p>Ana sayfada sırayla gösterilen büyük görseller, başlık ve alt yazılar.</p>
+      <span class="card-action">Düzenle →</span>
+    </a>
+    {% endif %}
+
+    {% if perms.pages.view_aboutsection or perms.pages.change_aboutsection %}
+    <a class="lorenza-card" href="{% url 'admin:pages_aboutsection_changelist' %}">
+      <span class="card-label">İçerik</span>
+      <h3>Hakkımızda</h3>
+      <p>Hakkımızda bölümünün başlığı ve metnini buradan güncelleyin.</p>
+      <span class="card-action">Düzenle →</span>
+    </a>
+    {% endif %}
+
+    {% if perms.pages.view_serviceitem or perms.pages.change_serviceitem %}
+    <a class="lorenza-card" href="{% url 'admin:pages_serviceitem_changelist' %}">
+      <span class="card-label">Hizmetler</span>
+      <h3>Yaptığımız İşler</h3>
+      <p>Hizmet listesini ekleyin, düzenleyin veya sırasını değiştirin.</p>
+      <span class="card-action">Düzenle →</span>
+    </a>
+    {% endif %}
+
+    {% if perms.pages.view_galleryitem or perms.pages.change_galleryitem %}
+    <a class="lorenza-card" href="{% url 'admin:pages_galleryitem_changelist' %}">
+      <span class="card-label">Portföy</span>
+      <h3>Galeri</h3>
+      <p>Yaptığınız işlerin fotoğraf, başlık ve açıklamalarını yönetin.</p>
+      <span class="card-action">Düzenle →</span>
+    </a>
+    {% endif %}
+
+    {% if perms.pages.view_contactinfo or perms.pages.change_contactinfo %}
+    <a class="lorenza-card" href="{% url 'admin:pages_contactinfo_changelist' %}">
+      <span class="card-label">İletişim</span>
+      <h3>İletişim Bilgileri</h3>
+      <p>Adres, telefon ve e-posta bilgilerini güncelleyin.</p>
+      <span class="card-action">Düzenle →</span>
+    </a>
+    {% endif %}
+  </div>
+
+  {% if app_list %}
+  <div class="lorenza-secondary">
+    <details>
+      <summary>Diğer yönetim seçenekleri</summary>
+      <ul>
+        {% for app in app_list %}
+          {% for model in app.models %}
+            {% if model.admin_url %}
+            <li>
+              <a href="{{ model.admin_url }}">{{ model.name }}</a>
+              {% if model.add_url %} — <a href="{{ model.add_url }}">Ekle</a>{% endif %}
+            </li>
+            {% endif %}
+          {% endfor %}
+        {% endfor %}
+      </ul>
+    </details>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block sidebar %}{% endblock %}

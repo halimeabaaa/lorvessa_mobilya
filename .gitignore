@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.env
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+*.log
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Local originals / scratch
+static/img/lorvessa-emblem-original.png
+_*.py
+
+# Working photos in project root (gallery copies live under media/)
+/WhatsApp Image *.jpeg
+/WhatsApp_Image_*.jpg

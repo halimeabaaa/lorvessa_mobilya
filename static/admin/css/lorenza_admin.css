@@ -1,0 +1,605 @@
+/* Lorenza Admin — site ile uyumlu koyu altın tema */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap');
+
+:root {
+  --lorenza-bg: #0c0b0a;
+  --lorenza-bg-elevated: #141311;
+  --lorenza-bg-card: #181614;
+  --lorenza-border: rgba(184, 164, 122, 0.16);
+  --lorenza-text: #c9b896;
+  --lorenza-muted: #9a8b6e;
+  --lorenza-accent: #b8a47a;
+  --lorenza-accent-hover: #d4c6a8;
+  --lorenza-danger: #c45c5c;
+  --lorenza-success: #6a9e6a;
+  --lorenza-serif: 'Cormorant Garamond', Georgia, serif;
+  --lorenza-sans: 'Montserrat', sans-serif;
+  --lorenza-radius: 4px;
+}
+
+html {
+  font-size: 15px;
+}
+
+body {
+  font-family: var(--lorenza-sans) !important;
+  background: var(--lorenza-bg) !important;
+  color: var(--lorenza-text) !important;
+}
+
+/* ---------- Header ---------- */
+#header {
+  background: rgba(13, 13, 13, 0.95) !important;
+  border-bottom: 1px solid var(--lorenza-border) !important;
+  color: var(--lorenza-text) !important;
+  padding: 0.85rem 2rem !important;
+  box-shadow: none !important;
+}
+
+#branding h1,
+#branding h1 a,
+#branding h1 a:link,
+#branding h1 a:visited {
+  font-family: var(--lorenza-serif) !important;
+  font-weight: 600 !important;
+  font-size: 1.5rem !important;
+  letter-spacing: 0.06em !important;
+  color: var(--lorenza-text) !important;
+}
+
+#user-tools {
+  font-size: 0.8rem !important;
+  letter-spacing: 0.04em !important;
+  color: var(--lorenza-muted) !important;
+}
+
+#user-tools a,
+#user-tools strong {
+  color: var(--lorenza-accent) !important;
+  border-bottom-color: transparent !important;
+}
+
+#user-tools a:hover {
+  color: var(--lorenza-accent-hover) !important;
+}
+
+.lorenza-view-site {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-left: 0.75rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid var(--lorenza-accent);
+  color: var(--lorenza-accent) !important;
+  text-decoration: none !important;
+  font-size: 0.7rem !important;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: background 0.2s, color 0.2s;
+}
+
+.lorenza-view-site:hover {
+  background: var(--lorenza-accent);
+  color: var(--lorenza-bg) !important;
+}
+
+/* ---------- Breadcrumbs ---------- */
+div.breadcrumbs {
+  background: var(--lorenza-bg-elevated) !important;
+  color: var(--lorenza-muted) !important;
+  border-bottom: 1px solid var(--lorenza-border);
+  padding: 0.85rem 2rem !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.04em;
+}
+
+div.breadcrumbs a {
+  color: var(--lorenza-accent) !important;
+}
+
+/* ---------- Content area ---------- */
+#container {
+  background: var(--lorenza-bg) !important;
+}
+
+.main {
+  background: var(--lorenza-bg) !important;
+}
+
+#content {
+  padding: 2rem !important;
+}
+
+#content h1 {
+  font-family: var(--lorenza-serif) !important;
+  font-weight: 600 !important;
+  font-size: 2rem !important;
+  color: var(--lorenza-text) !important;
+  margin-bottom: 1.25rem !important;
+}
+
+#content-main {
+  float: none !important;
+  width: 100% !important;
+}
+
+/* ---------- Dashboard cards ---------- */
+.lorenza-dashboard {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 1100px;
+}
+
+.lorenza-intro {
+  padding: 1.5rem 1.75rem;
+  background: var(--lorenza-bg-card);
+  border: 1px solid var(--lorenza-border);
+  border-left: 3px solid var(--lorenza-accent);
+  margin-bottom: 0.5rem;
+}
+
+.lorenza-intro h2 {
+  font-family: var(--lorenza-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--lorenza-text);
+  margin: 0 0 0.5rem;
+}
+
+.lorenza-intro p {
+  color: var(--lorenza-muted);
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.lorenza-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.lorenza-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--lorenza-bg-card);
+  border: 1px solid var(--lorenza-border);
+  padding: 1.35rem 1.4rem;
+  text-decoration: none !important;
+  transition: border-color 0.2s, transform 0.2s;
+  min-height: 150px;
+}
+
+.lorenza-card:hover {
+  border-color: var(--lorenza-accent);
+  transform: translateY(-3px);
+}
+
+.lorenza-card .card-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--lorenza-accent);
+  margin-bottom: 0.6rem;
+}
+
+.lorenza-card h3 {
+  font-family: var(--lorenza-serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--lorenza-text);
+  margin: 0 0 0.5rem;
+}
+
+.lorenza-card p {
+  color: var(--lorenza-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.lorenza-card .card-action {
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lorenza-accent);
+}
+
+/* Hide default module list on index when custom dashboard is shown */
+.lorenza-dashboard ~ .module,
+#content-main > .app-pages.module,
+#content-main > .app-auth.module {
+  /* kept as fallback; custom index replaces most of this */
+}
+
+.lorenza-secondary {
+  margin-top: 1.5rem;
+}
+
+.lorenza-secondary details {
+  background: var(--lorenza-bg-card);
+  border: 1px solid var(--lorenza-border);
+  padding: 1rem 1.25rem;
+}
+
+.lorenza-secondary summary {
+  cursor: pointer;
+  color: var(--lorenza-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  list-style: none;
+}
+
+.lorenza-secondary summary::-webkit-details-marker {
+  display: none;
+}
+
+.lorenza-secondary a {
+  color: var(--lorenza-accent);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.lorenza-secondary ul {
+  margin: 0.75rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--lorenza-muted);
+}
+
+/* ---------- Modules / tables ---------- */
+.module,
+.module caption,
+.inline-group,
+fieldset.module {
+  background: var(--lorenza-bg-card) !important;
+  border: 1px solid var(--lorenza-border) !important;
+  border-radius: var(--lorenza-radius) !important;
+  box-shadow: none !important;
+}
+
+.module h2,
+.module caption,
+inline-related h3,
+.inline-group h2 {
+  background: var(--lorenza-bg-elevated) !important;
+  color: var(--lorenza-text) !important;
+  font-family: var(--lorenza-sans) !important;
+  font-size: 0.8rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  border-bottom: 1px solid var(--lorenza-border) !important;
+  padding: 0.85rem 1rem !important;
+}
+
+.module table {
+  width: 100%;
+}
+
+.module th,
+.module td,
+#changelist table thead th,
+#changelist table tbody td,
+#result_list th,
+#result_list td {
+  background: transparent !important;
+  color: var(--lorenza-text) !important;
+  border-color: var(--lorenza-border) !important;
+  padding: 0.75rem 1rem !important;
+}
+
+#changelist table thead th,
+#result_list thead th {
+  background: var(--lorenza-bg-elevated) !important;
+  color: var(--lorenza-muted) !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+#changelist table tbody tr:hover,
+#result_list tbody tr:hover {
+  background: rgba(201, 169, 98, 0.06) !important;
+}
+
+a:link,
+a:visited {
+  color: var(--lorenza-accent);
+}
+
+a:hover {
+  color: var(--lorenza-accent-hover);
+}
+
+/* ---------- Forms ---------- */
+.form-row {
+  border-bottom: 1px solid var(--lorenza-border) !important;
+  padding: 1rem 0 !important;
+}
+
+.form-row label,
+label.required {
+  color: var(--lorenza-muted) !important;
+  font-size: 0.8rem !important;
+  letter-spacing: 0.04em;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="url"],
+input[type="number"],
+input[type="tel"],
+textarea,
+select,
+.vTextField,
+.vLargeTextField,
+.vIntegerField {
+  background: var(--lorenza-bg) !important;
+  color: var(--lorenza-text) !important;
+  border: 1px solid var(--lorenza-border) !important;
+  border-radius: var(--lorenza-radius) !important;
+  padding: 0.55rem 0.75rem !important;
+  font-family: var(--lorenza-sans) !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--lorenza-accent) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(201, 169, 98, 0.2) !important;
+}
+
+.help,
+.helptext,
+p.help {
+  color: var(--lorenza-muted) !important;
+  font-size: 0.8rem !important;
+  line-height: 1.45 !important;
+}
+
+fieldset .description {
+  color: var(--lorenza-muted) !important;
+  padding: 0.75rem 1rem !important;
+  border-bottom: 1px solid var(--lorenza-border);
+  background: rgba(201, 169, 98, 0.04);
+}
+
+/* ---------- Buttons ---------- */
+.button,
+input[type="submit"],
+input[type="button"],
+.submit-row input,
+a.button {
+  background: transparent !important;
+  border: 1px solid var(--lorenza-accent) !important;
+  color: var(--lorenza-accent) !important;
+  font-family: var(--lorenza-sans) !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1em !important;
+  text-transform: uppercase !important;
+  padding: 0.65rem 1.25rem !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transition: background 0.2s, color 0.2s;
+}
+
+.button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.submit-row input:hover,
+a.button:hover,
+.button.default,
+input[type="submit"].default,
+.submit-row input.default {
+  background: var(--lorenza-accent) !important;
+  color: var(--lorenza-bg) !important;
+}
+
+.deletelink,
+a.deletelink {
+  background: transparent !important;
+  border-color: var(--lorenza-danger) !important;
+  color: var(--lorenza-danger) !important;
+}
+
+.deletelink:hover,
+a.deletelink:hover {
+  background: var(--lorenza-danger) !important;
+  color: #fff !important;
+}
+
+.submit-row {
+  background: var(--lorenza-bg-elevated) !important;
+  border: 1px solid var(--lorenza-border) !important;
+  padding: 1rem !important;
+}
+
+/* ---------- Changelist toolbar ---------- */
+#toolbar,
+#changelist-filter,
+#changelist .actions {
+  background: var(--lorenza-bg-card) !important;
+  border: 1px solid var(--lorenza-border) !important;
+  color: var(--lorenza-text) !important;
+}
+
+#changelist-filter h2 {
+  background: var(--lorenza-bg-elevated) !important;
+  color: var(--lorenza-muted) !important;
+}
+
+#changelist-filter li.selected a {
+  color: var(--lorenza-accent) !important;
+}
+
+#toolbar #searchbar {
+  background: var(--lorenza-bg) !important;
+  color: var(--lorenza-text) !important;
+  border: 1px solid var(--lorenza-border) !important;
+}
+
+.object-tools a {
+  background: transparent !important;
+  border: 1px solid var(--lorenza-accent) !important;
+  color: var(--lorenza-accent) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: 0 !important;
+  padding: 0.5rem 1rem !important;
+}
+
+.object-tools a:hover {
+  background: var(--lorenza-accent) !important;
+  color: var(--lorenza-bg) !important;
+}
+
+/* ---------- Messages ---------- */
+.messagelist li {
+  border-radius: 0 !important;
+  font-size: 0.9rem !important;
+}
+
+.messagelist li.success {
+  background: rgba(106, 158, 106, 0.15) !important;
+  color: var(--lorenza-success) !important;
+  border-left: 3px solid var(--lorenza-success);
+}
+
+.messagelist li.error,
+.messagelist li.warning {
+  background: rgba(196, 92, 92, 0.12) !important;
+  color: var(--lorenza-danger) !important;
+  border-left: 3px solid var(--lorenza-danger);
+}
+
+.messagelist li.info {
+  background: rgba(201, 169, 98, 0.12) !important;
+  color: var(--lorenza-accent) !important;
+  border-left: 3px solid var(--lorenza-accent);
+}
+
+/* ---------- Login ---------- */
+.login {
+  background: var(--lorenza-bg) !important;
+}
+
+.login #container {
+  background: transparent !important;
+}
+
+.login #header {
+  background: transparent !important;
+  border: none !important;
+  justify-content: center;
+}
+
+.login #content {
+  background: var(--lorenza-bg-card) !important;
+  border: 1px solid var(--lorenza-border);
+  padding: 2rem !important;
+}
+
+.login .form-row label {
+  color: var(--lorenza-muted) !important;
+}
+
+.login #content-main::before {
+  content: 'Site yönetim paneline giriş yapın';
+  display: block;
+  text-align: center;
+  color: var(--lorenza-muted);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.25rem;
+}
+
+/* ---------- Image thumbnails in list ---------- */
+.lorenza-thumb {
+  width: 72px;
+  height: 54px;
+  object-fit: cover;
+  border: 1px solid var(--lorenza-border);
+  background: #1a1a1a;
+  display: block;
+}
+
+.lorenza-thumb-placeholder {
+  width: 72px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a1a1a;
+  border: 1px dashed var(--lorenza-border);
+  color: var(--lorenza-muted);
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ---------- Sidebar nav (Django 4.x) ---------- */
+.main > .nav-sidebar,
+#nav-sidebar {
+  background: var(--lorenza-bg-elevated) !important;
+  border-right: 1px solid var(--lorenza-border) !important;
+}
+
+#nav-sidebar .current-model {
+  background: rgba(201, 169, 98, 0.1) !important;
+}
+
+#nav-sidebar a {
+  color: var(--lorenza-muted) !important;
+}
+
+#nav-sidebar a:hover,
+#nav-sidebar .current-app .section:link,
+#nav-sidebar .current-app .section:visited {
+  color: var(--lorenza-accent) !important;
+}
+
+#toggle-nav-sidebar {
+  background: var(--lorenza-bg-elevated) !important;
+  border-color: var(--lorenza-border) !important;
+  color: var(--lorenza-muted) !important;
+}
+
+/* ---------- Pagination ---------- */
+.paginator {
+  color: var(--lorenza-muted) !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.paginator a {
+  color: var(--lorenza-accent) !important;
+}
+
+/* ---------- Related widget / calendar leftovers ---------- */
+.calendarbox,
+.clockbox {
+  background: var(--lorenza-bg-card) !important;
+  border-color: var(--lorenza-border) !important;
+  color: var(--lorenza-text) !important;
+}
+
+/* Quiet secondary text */
+.quiet {
+  color: var(--lorenza-muted) !important;
+}
+
+/* Checkbox / boolean icons remain readable */
+img[src*="icon-yes"],
+img[src*="icon-no"] {
+  filter: brightness(1.2);
+}

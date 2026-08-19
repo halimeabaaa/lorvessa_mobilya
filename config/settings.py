@@ -14,7 +14,11 @@ except ImportError:
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'dev-key-change-in-production')
 
-DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
+# Render'da varsayılan kapalı; yerelde .env ile DEBUG=true
+if os.environ.get('RENDER'):
+    DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+else:
+    DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
 _allowed = os.environ.get('ALLOWED_HOSTS', '*').strip()
 if _allowed == '*':

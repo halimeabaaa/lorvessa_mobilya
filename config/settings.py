@@ -36,6 +36,13 @@ elif not DEBUG:
     ]
 else:
     CSRF_TRUSTED_ORIGINS = []
+for _origin in (
+    'https://lorvessa-mobilya.onrender.com',
+    'https://lorvessamobilya.com',
+    'https://www.lorvessamobilya.com',
+):
+    if _origin not in CSRF_TRUSTED_ORIGINS:
+        CSRF_TRUSTED_ORIGINS.append(_origin)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -154,6 +161,25 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {'class': 'logging.StreamHandler'},
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+    },
+}
 
 # SEO / canlı site
 SITE_NAME = 'Lorvessa Mobilya'

@@ -86,8 +86,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Veritabanı: .env'de USE_SQLITE=true yazarsanız MySQL olmadan SQLite kullanılır
-USE_SQLITE = os.environ.get('USE_SQLITE', '').lower() in ('1', 'true', 'yes')
+# Veritabanı: varsayılan SQLite. MySQL için USE_SQLITE=false ve MYSQL_* doldurun.
+USE_SQLITE = os.environ.get('USE_SQLITE', 'true').lower() in ('1', 'true', 'yes')
+if os.environ.get('RENDER') and os.environ.get('USE_SQLITE', 'true').lower() not in ('0', 'false', 'no'):
+    USE_SQLITE = True
 
 if USE_SQLITE:
     DATABASES = {

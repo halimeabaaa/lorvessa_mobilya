@@ -103,10 +103,11 @@ if os.environ.get('RENDER') and os.environ.get('USE_SQLITE', 'true').lower() not
     USE_SQLITE = True
 
 if USE_SQLITE:
+    _sqlite_name = Path('/tmp/lorvessa.sqlite3') if os.environ.get('RENDER') else (BASE_DIR / 'db.sqlite3')
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'NAME': _sqlite_name,
         }
     }
 else:

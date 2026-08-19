@@ -20,7 +20,6 @@ Thumbs.db
 
 # Local originals / scratch
 static/img/lorvessa-emblem-original.png
-_*.py
 
 # Working photos in project root (gallery copies live under media/)
 /WhatsApp Image *.jpeg

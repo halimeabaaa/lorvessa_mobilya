@@ -172,11 +172,17 @@ if not DEBUG:
         SECURE_HSTS_SECONDS = 31536000
         SECURE_HSTS_INCLUDE_SUBDOMAINS = True
         SECURE_HSTS_PRELOAD = True
+
+if os.environ.get('RENDER'):
     _render_host = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
     if _render_host and _render_host not in ALLOWED_HOSTS:
         ALLOWED_HOSTS.append(_render_host)
-    if _render_host:
-        origin = f'https://{_render_host}'
-        if origin not in CSRF_TRUSTED_ORIGINS:
+    if '.onrender.com' not in ALLOWED_HOSTS:
+        ALLOWED_HOSTS.append('.onrender.com')
+    for origin in (
+        f'https://{_render_host}' if _render_host else '',
+        'https://lorvessa-mobilya.onrender.com',
+    ):
+        if origin and origin not in CSRF_TRUSTED_ORIGINS:
             CSRF_TRUSTED_ORIGINS.append(origin)
 

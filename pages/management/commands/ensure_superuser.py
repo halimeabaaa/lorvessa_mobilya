@@ -9,7 +9,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         username = os.environ.get('DJANGO_SUPERUSER_USERNAME', '').strip()
-        password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', '')
+        password = os.environ.get('DJANGO_SUPERUSER_PASSWORD', '').strip().strip('"').strip("'")
         email = os.environ.get('DJANGO_SUPERUSER_EMAIL', '').strip()
         if not username or not password:
             self.stdout.write('DJANGO_SUPERUSER_USERNAME / PASSWORD yok, atlandı.')

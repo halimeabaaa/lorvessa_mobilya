@@ -203,3 +203,36 @@ class ContactInfo(models.Model):
             end = raw.find("'", start)
             return raw[start:end] if end > start else ''
         return raw
+
+
+class SiteComment(models.Model):
+    """Ziyaretçi yorumları — sitede görünür, admin panelinden silinebilir."""
+    author_name = models.CharField(
+        'Ad Soyad',
+        max_length=80,
+        help_text='Yorumu yazan kişinin adı.',
+    )
+    body = models.TextField(
+        'Yorum',
+        help_text='Yorum metni.',
+    )
+    created_at = models.DateTimeField(
+        'Tarih',
+        auto_now_add=True,
+    )
+    is_visible = models.BooleanField(
+        'Sitede göster',
+        default=True,
+        help_text='İşareti kaldırırsanız yorum silinmeden siteden gizlenir.',
+    )
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Yorum'
+        verbose_name_plural = 'Yorumlar'
+
+    def __str__(self):
+        preview = (self.body or '').strip().replace('\n', ' ')
+        if len(preview) > 40:
+            preview = preview[:40] + '…'
+        return f'{self.author_name}: {preview or "Yorum"}'

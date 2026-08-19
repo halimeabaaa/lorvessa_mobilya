@@ -2,7 +2,14 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
-from .models import SliderImage, AboutSection, ServiceItem, GalleryItem, ContactInfo
+from .models import (
+    SliderImage,
+    AboutSection,
+    ServiceItem,
+    GalleryItem,
+    ContactInfo,
+    SiteComment,
+)
 
 
 admin.site.site_header = 'Lorvessa Mobilya Yönetim'
@@ -170,3 +177,38 @@ class ContactInfoAdmin(SingletonModelAdmin):
     @admin.display(description='Harita', boolean=True)
     def has_map(self, obj):
         return bool(obj.get_map_src())
+
+
+@admin.register(SiteComment)
+class SiteCommentAdmin(admin.ModelAdmin):
+    list_display = ('author_name', 'short_body', 'created_at', 'is_visible')
+    list_display_links = ('author_name', 'short_body')
+    list_filter = ('is_visible', 'created_at')
+    list_editable = ('is_visible',)
+    search_fields = ('author_name', 'body')
+    ordering = ('-created_at',)
+    date_hierarchy = 'created_at'
+    readonly_fields = ('created_at',)
+    actions = ('hide_comments', 'show_comments')
+
+    fieldsets = (
+        (None, {
+            'description': 'Uygunsuz yorumları buradan silebilir veya “Sitede göster” işaretini kaldırarak gizleyebilirsiniz.',
+            'fields': ('author_name', 'body', 'is_visible', 'created_at'),
+        }),
+    )
+
+    @admin.display(description='Yorum')
+    def short_body(self, obj):
+        text = (obj.body or '').strip().replace('\n', ' ')
+        if len(text) > 70:
+            return text[:70] + '…'
+        return text or '—'
+
+    @admin.action(description='Seçilen yorumları siteden gizle')
+    def hide_comments(self, request, queryset):
+        queryset.update(is_visible=False)
+
+    @admin.action(description='Seçilen yorumları sitede göster')
+    def show_comments(self, request, queryset):
+        queryset.update(is_visible=True)

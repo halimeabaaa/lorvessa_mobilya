@@ -56,6 +56,15 @@
       <span class="card-action">Düzenle →</span>
     </a>
     {% endif %}
+
+    {% if perms.pages.view_sitecomment or perms.pages.delete_sitecomment or perms.pages.change_sitecomment %}
+    <a class="lorenza-card" href="{% url 'admin:pages_sitecomment_changelist' %}">
+      <span class="card-label">Ziyaretçiler</span>
+      <h3>Yorumlar</h3>
+      <p>Gelen yorumları okuyun, gizleyin veya silin.</p>
+      <span class="card-action">Yönet →</span>
+    </a>
+    {% endif %}
   </div>
 
   {% if app_list %}

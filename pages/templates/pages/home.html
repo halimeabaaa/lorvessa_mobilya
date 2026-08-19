@@ -301,6 +301,116 @@
     #iletisim .contact-item strong { color: var(--color-text); margin-right: 0.5rem; }
     #iletisim a { color: var(--color-accent); text-decoration: none; }
     #iletisim a:hover { text-decoration: underline; }
+
+    /* ========== YORUMLAR ========== */
+    #yorumlar {
+        max-width: 760px;
+        min-height: auto;
+        padding-bottom: 4rem;
+    }
+    #yorumlar .comments-intro {
+        color: var(--color-muted);
+        text-align: center;
+        margin: 0.5rem 0 2rem;
+    }
+    .comment-alert {
+        text-align: center;
+        margin-bottom: 1.25rem;
+        padding: 0.75rem 1rem;
+        border: 1px solid rgba(184, 164, 122, 0.35);
+        color: var(--color-accent);
+        font-size: 0.92rem;
+    }
+    .comment-alert.error {
+        border-color: rgba(180, 90, 80, 0.5);
+        color: #d4a39a;
+    }
+    .comment-form {
+        display: grid;
+        gap: 0.9rem;
+        margin-bottom: 2.5rem;
+        text-align: left;
+    }
+    .comment-form label {
+        display: block;
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-muted);
+        margin-bottom: 0.35rem;
+    }
+    .comment-form input[type="text"],
+    .comment-form textarea {
+        width: 100%;
+        background: rgba(20, 17, 14, 0.9);
+        border: 1px solid rgba(184, 164, 122, 0.35);
+        color: var(--color-text);
+        padding: 0.75rem 0.9rem;
+        font: inherit;
+        font-size: 1rem;
+    }
+    .comment-form textarea { min-height: 120px; resize: vertical; }
+    .comment-form input:focus,
+    .comment-form textarea:focus {
+        outline: none;
+        border-color: var(--color-accent);
+    }
+    .comment-form .hp {
+        position: absolute;
+        left: -9999px;
+        height: 0;
+        overflow: hidden;
+    }
+    .comment-form button {
+        justify-self: start;
+        background: transparent;
+        border: 1px solid var(--color-accent);
+        color: var(--color-accent);
+        padding: 0.7rem 1.4rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-size: 0.78rem;
+        cursor: pointer;
+    }
+    .comment-form button:hover {
+        background: var(--color-accent);
+        color: var(--color-bg);
+    }
+    .comment-list {
+        display: grid;
+        gap: 1rem;
+        text-align: left;
+    }
+    .comment-card {
+        border: 1px solid rgba(184, 164, 122, 0.22);
+        padding: 1.1rem 1.25rem;
+        background: rgba(20, 17, 14, 0.45);
+    }
+    .comment-card header {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-bottom: 0.55rem;
+        align-items: baseline;
+    }
+    .comment-card .author {
+        color: var(--color-accent);
+        font-family: var(--font-serif);
+        font-size: 1.05rem;
+    }
+    .comment-card time {
+        color: var(--color-muted);
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+    .comment-card p {
+        color: var(--color-text);
+        line-height: 1.6;
+        margin: 0;
+        white-space: pre-wrap;
+    }
+    .comment-empty { text-align: center; color: var(--color-muted); }
+
     .contact-layout {
         display: grid;
         grid-template-columns: 1fr 1.15fr;
@@ -733,6 +843,49 @@
                    <a href="https://wa.me/905066791721" target="_blank" rel="noopener">WhatsApp’ta yazın</a>.
                    İletişim bölümünden harita ve adres bilgilerine de ulaşabilirsiniz.</p>
             </details>
+        </div>
+    </section>
+
+    <!-- YORUMLAR -->
+    <section id="yorumlar" aria-labelledby="yorumlar-baslik">
+        <h2 id="yorumlar-baslik">Yorumlar</h2>
+        <p class="comments-intro">Deneyiminizi paylaşın. Uygunsuz yorumlar yönetim tarafından kaldırılabilir.</p>
+
+        {% if messages %}
+            {% for message in messages %}
+            <p class="comment-alert{% if message.tags == 'error' %} error{% endif %}" role="status">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form class="comment-form" method="post" action="{% url 'add_comment' %}">
+            {% csrf_token %}
+            <p class="hp" aria-hidden="true">
+                <label for="id_website">Website</label>
+                <input type="text" name="website" id="id_website" tabindex="-1" autocomplete="off">
+            </p>
+            <div>
+                <label for="id_author_name">Adınız</label>
+                <input type="text" name="author_name" id="id_author_name" maxlength="80" required placeholder="Adınız">
+            </div>
+            <div>
+                <label for="id_body">Yorumunuz</label>
+                <textarea name="body" id="id_body" maxlength="800" required placeholder="Yorumunuzu yazın"></textarea>
+            </div>
+            <button type="submit">Yorum gönder</button>
+        </form>
+
+        <div class="comment-list">
+            {% for comment in comments %}
+            <article class="comment-card">
+                <header>
+                    <span class="author">{{ comment.author_name }}</span>
+                    <time datetime="{{ comment.created_at|date:'c' }}">{{ comment.created_at|date:"d.m.Y H:i" }}</time>
+                </header>
+                <p>{{ comment.body }}</p>
+            </article>
+            {% empty %}
+            <p class="comment-empty">Henüz yorum yok. İlk yorumu siz yazın.</p>
+            {% endfor %}
         </div>
     </section>
 

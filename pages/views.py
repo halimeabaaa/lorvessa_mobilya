@@ -1,9 +1,21 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.sitemaps.views import sitemap
+from django.contrib import messages
+from django.urls import reverse
+from django.views.decorators.http import require_POST
 import json
+import time
 
-from .models import SliderImage, AboutSection, ServiceItem, GalleryItem, ContactInfo
+from .models import (
+    SliderImage,
+    AboutSection,
+    ServiceItem,
+    GalleryItem,
+    ContactInfo,
+    SiteComment,
+)
+from .forms import SiteCommentForm
 from .seo import build_json_ld, default_seo
 from .sitemaps import StaticViewSitemap
 
@@ -50,6 +62,10 @@ def home(request):
         'gallery_items': gallery_items,
         'gallery_batches': gallery_batches,
         'contact': contact,
+        'comments': SiteComment.objects.filter(is_visible=True).only(
+            'id', 'author_name', 'body', 'created_at'
+        )[:50],
+        'comment_form': SiteCommentForm(),
         'seo': seo,
         'json_ld': json.dumps(json_ld, ensure_ascii=False, separators=(',', ':')),
         'canonical_url': request.build_absolute_uri('/'),
@@ -57,9 +73,35 @@ def home(request):
         'lcp_image': lcp_image,
     }
     response = render(request, 'pages/home.html', context)
-    response['Cache-Control'] = 'public, max-age=120, stale-while-revalidate=600'
+    response['Cache-Control'] = 'private, no-store'
     response['X-Content-Type-Options'] = 'nosniff'
     return response
+
+
+@require_POST
+def add_comment(request):
+    """Ziyaretçi yorumu ekler; ardından yorum bölümüne döner."""
+    last = request.session.get('last_comment_ts')
+    try:
+        last_ts = float(last) if last is not None else 0
+    except (TypeError, ValueError):
+        last_ts = 0
+    if last_ts and (time.time() - last_ts) < 45:
+        messages.error(request, 'Lütfen yeni yorum için kısa bir süre bekleyin.')
+        return redirect(reverse('home') + '#yorumlar')
+
+    form = SiteCommentForm(request.POST)
+    if form.is_valid():
+        SiteComment.objects.create(
+            author_name=form.cleaned_data['author_name'],
+            body=form.cleaned_data['body'],
+        )
+        request.session['last_comment_ts'] = time.time()
+        messages.success(request, 'Yorumunuz yayınlandı. Teşekkür ederiz.')
+        return redirect(reverse('home') + '#yorumlar')
+
+    messages.error(request, 'Yorum gönderilemedi. Ad ve yorum alanlarını kontrol edin.')
+    return redirect(reverse('home') + '#yorumlar')
 
 
 def robots_txt(request):

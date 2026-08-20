@@ -6,13 +6,16 @@ from django.views.static import serve
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
-]
-
-# Yerelde /media/; Render'da WhiteNoise /static/media/ kullanır + yedek serve
-_media_root = str(settings.MEDIA_ROOT)
-urlpatterns += [
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': _media_root}),
-    re_path(r'^static/media/(?P<path>.*)$', serve, {'document_root': _media_root}),
+    re_path(
+        r'^static/media/(?P<path>.*)$',
+        serve,
+        {'document_root': str(settings.MEDIA_ROOT)},
+    ),
+    re_path(
+        r'^media/(?P<path>.*)$',
+        serve,
+        {'document_root': str(settings.MEDIA_ROOT)},
+    ),
 ]
 
 if settings.DEBUG:

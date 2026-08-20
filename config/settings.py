@@ -138,11 +138,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-# media/ GitHub'dan gelir; collectstatic ile /static/media/ altında yayınlanır (Render'da kalıcı)
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-    ('media', BASE_DIR / 'media'),
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 _static_backend = 'django.contrib.staticfiles.storage.StaticFilesStorage'
@@ -162,14 +158,9 @@ WHITENOISE_MAX_AGE = 60 * 60 * 24 * 30
 WHITENOISE_USE_FINDERS = DEBUG
 WHITENOISE_AUTOREFRESH = DEBUG
 
-# Render: görseller WhiteNoise ile /static/media/ üzerinden (build'de collectstatic)
-# Yerel: klasik /media/
-if os.environ.get('RENDER'):
-    MEDIA_URL = '/static/media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
-else:
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
+# Görseller static/media altında (WhiteNoise ile Render'da garanti sunulur)
+MEDIA_ROOT = BASE_DIR / 'static' / 'media'
+MEDIA_URL = '/static/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

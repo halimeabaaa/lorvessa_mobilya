@@ -7,20 +7,26 @@ from pages.models import GalleryItem, SliderImage
 
 
 class Command(BaseCommand):
-    help = 'media/ klasöründeki görsellerden galeri/slider kayıtları oluşturur.'
+    help = 'media/ klasöründeki görsellerden galeri/slider kayıtları oluşturur; eksik dosyalı kayıtları temizler.'
 
     def handle(self, *args, **options):
         media_root = Path(settings.MEDIA_ROOT)
-        self._sync_folder(
-            media_root / 'gallery',
-            GalleryItem,
-            'gallery',
-        )
-        self._sync_folder(
-            media_root / 'slider',
-            SliderImage,
-            'slider',
-        )
+        self._purge_missing(GalleryItem, media_root)
+        self._purge_missing(SliderImage, media_root)
+        self._sync_folder(media_root / 'gallery', GalleryItem, 'gallery')
+        self._sync_folder(media_root / 'slider', SliderImage, 'slider')
+
+    def _purge_missing(self, model, media_root: Path):
+        removed = 0
+        for obj in model.objects.exclude(image='').only('id', 'image'):
+            rel = (obj.image.name or '').replace('\\', '/')
+            if not rel:
+                continue
+            if not (media_root / rel).is_file():
+                obj.delete()
+                removed += 1
+        if removed:
+            self.stdout.write(f'{model.__name__}: {removed} eksik dosyalı kayıt silindi')
 
     def _sync_folder(self, folder: Path, model, upload_prefix: str):
         if not folder.is_dir():
@@ -44,7 +50,6 @@ class Command(BaseCommand):
                 continue
             if not lower.endswith(('.webp', '.png', '.jpg', '.jpeg')):
                 continue
-            # Aynı görselin hem png hem webp'si varsa webp tercih et; png'yi atla
             if lower.endswith(('.png', '.jpg', '.jpeg')):
                 webp = path.with_suffix('.webp')
                 if webp.is_file():

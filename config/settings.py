@@ -138,7 +138,11 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+# media/ GitHub'dan gelir; collectstatic ile /static/media/ altında yayınlanır (Render'da kalıcı)
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+    ('media', BASE_DIR / 'media'),
+]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 _static_backend = 'django.contrib.staticfiles.storage.StaticFilesStorage'
@@ -158,11 +162,13 @@ WHITENOISE_MAX_AGE = 60 * 60 * 24 * 30
 WHITENOISE_USE_FINDERS = DEBUG
 WHITENOISE_AUTOREFRESH = DEBUG
 
-MEDIA_URL = 'media/'
-# Render ücretsiz planda kalıcı disk yok; /tmp hem yükleme hem sunum için yazılabilir
+# Render: görseller WhiteNoise ile /static/media/ üzerinden (build'de collectstatic)
+# Yerel: klasik /media/
 if os.environ.get('RENDER'):
-    MEDIA_ROOT = Path('/tmp/lorvessa_media')
+    MEDIA_URL = '/static/media/'
+    MEDIA_ROOT = BASE_DIR / 'media'
 else:
+    MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

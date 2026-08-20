@@ -381,9 +381,10 @@
 
     {% block extra_js %}{% endblock %}
     <script>
+    /* Eski service worker bozuk medya adreslerini cache'liyordu; tamamen kaldır. */
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function () {
-        navigator.serviceWorker.register('{% static "sw.js" %}').catch(function () {});
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        registrations.forEach(function (registration) { registration.unregister(); });
       });
     }
     </script>

@@ -73,7 +73,9 @@ def home(request):
         'lcp_image': lcp_image,
     }
     response = render(request, 'pages/home.html', context)
-    response['Cache-Control'] = 'private, no-store'
+    response['Cache-Control'] = 'no-store, no-cache, must-revalidate, max-age=0'
+    response['Pragma'] = 'no-cache'
+    response['Expires'] = '0'
     response['X-Content-Type-Options'] = 'nosniff'
     return response
 

@@ -159,7 +159,11 @@ WHITENOISE_USE_FINDERS = DEBUG
 WHITENOISE_AUTOREFRESH = DEBUG
 
 MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# Render ücretsiz planda kalıcı disk yok; /tmp hem yükleme hem sunum için yazılabilir
+if os.environ.get('RENDER'):
+    MEDIA_ROOT = Path('/tmp/lorvessa_media')
+else:
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

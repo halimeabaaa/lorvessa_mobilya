@@ -163,12 +163,59 @@
             justify-content: flex-end;
         }
         @media (max-width: 800px) {
-            .navbar { padding: 0.5rem 1rem; }
-            .navbar .logo { gap: 0.5rem; }
-            .navbar .logo-mark { width: 58px; height: 58px; }
-            .navbar .logo-name { font-size: 1.25rem; letter-spacing: 0.1em; }
-            .navbar nav { gap: 0.85rem; }
-            .navbar nav a { font-size: 0.7rem; }
+            .navbar { padding: 0.55rem 0.85rem 0.65rem; }
+            .navbar-inner {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.65rem;
+            }
+            .navbar .logo { gap: 0.55rem; }
+            .navbar .logo-mark { width: 52px; height: 52px; }
+            .navbar .logo-name { font-size: 1.35rem; letter-spacing: 0.12em; }
+            .navbar nav {
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                gap: 0.15rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 0.15rem;
+                mask-image: linear-gradient(to right, #000 85%, transparent);
+            }
+            .navbar nav::-webkit-scrollbar { display: none; }
+            .navbar nav a {
+                font-size: 0.72rem;
+                letter-spacing: 0.06em;
+                white-space: nowrap;
+                padding: 0.35rem 0.55rem;
+                flex-shrink: 0;
+            }
+            section {
+                min-height: auto;
+                padding: 4.25rem 1.15rem 3rem;
+            }
+            section h2 {
+                font-size: clamp(1.65rem, 7vw, 2.15rem);
+                margin-bottom: 1.15rem;
+                line-height: 1.2;
+            }
+            .btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.75rem;
+            }
+            .site-footer { padding: 2.25rem 1.15rem 3.5rem; }
+        }
+        @media (max-width: 560px) {
+            #hakkimizda .content,
+            #hakkimizda .content p {
+                font-size: 1rem !important;
+                line-height: 1.65;
+            }
+            .service-item {
+                padding: 1.2rem 1.15rem;
+            }
+            .service-item h3 { font-size: 1.2rem; }
+            .service-item p { font-size: 0.95rem; line-height: 1.55; }
         }
         .navbar nav a {
             color: var(--color-muted);

@@ -90,6 +90,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
+                'pages.context_processors.site_settings',
             ],
         },
     },
@@ -197,6 +198,7 @@ LOGGING = {
 # SEO / canlı site
 SITE_NAME = 'Lorvessa Mobilya'
 SITE_URL = os.environ.get('SITE_URL', 'http://127.0.0.1:8000').rstrip('/')
+GOOGLE_SITE_VERIFICATION = os.environ.get('GOOGLE_SITE_VERIFICATION', '').strip()
 
 # Canlıda HTTPS için .env: SECURE_SSL_REDIRECT=true
 if not DEBUG:

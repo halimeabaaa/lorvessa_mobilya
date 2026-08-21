@@ -1,0 +1,23 @@
+{% extends 'pages/base.html' %}
+{% block title %}Gizlilik Politikası | Lorvessa Mobilya{% endblock %}
+{% block meta_description %}Lorvessa Mobilya web sitesi gizlilik politikası ve kişisel verilerin kullanımına ilişkin bilgilendirme.{% endblock %}
+{% block canonical %}{{ canonical_url }}{% endblock %}
+{% block robots %}index, follow{% endblock %}
+{% block extra_css %}
+<style>
+.legal-page{min-height:75vh;padding-top:9rem}.legal-inner{max-width:820px;margin:0 auto}.breadcrumbs{margin-bottom:2rem;font-size:.85rem;color:var(--color-muted)}.legal-inner h2{font-size:1.35rem;margin:2rem 0 .6rem}.legal-inner p{margin-bottom:.8rem}
+</style>
+{% endblock %}
+{% block content %}
+<section class="legal-page"><div class="legal-inner">
+<nav class="breadcrumbs" aria-label="Sayfa yolu"><a href="{% url 'home' %}">Ana Sayfa</a> / Gizlilik Politikası</nav>
+<h1>Gizlilik Politikası</h1>
+<p>Bu politika, Lorvessa Mobilya web sitesini ziyaret ettiğinizde paylaştığınız bilgilerin nasıl kullanıldığını açıklar.</p>
+<h2>Toplanan bilgiler</h2><p>Yorum formunda yalnızca adınız ve yazdığınız yorum alınır. Telefon, WhatsApp ve e-posta bağlantıları kendi cihazınızdaki ilgili uygulamayı açar.</p>
+<h2>Kullanım amacı</h2><p>Paylaşılan bilgiler yorumunuzu yayımlamak, ziyaretçi deneyimini iyileştirmek, güvenliği sağlamak ve taleplerinize yanıt vermek amacıyla kullanılır.</p>
+<h2>Teknik veriler ve çerezler</h2><p>Sunucu hizmeti güvenlik ve hata ayıklama amacıyla IP adresi, tarayıcı türü ve erişim zamanı gibi standart teknik günlükleri tutabilir. Yorum gönderimindeki kötüye kullanımı sınırlamak için zorunlu oturum çerezi kullanılabilir.</p>
+<h2>Paylaşım ve saklama</h2><p>Bilgiler yasal zorunluluklar dışında üçüncü taraflara satılmaz. Site Render üzerinde, veritabanı Neon altyapısında çalışır. Veriler yalnızca hizmetin gerektirdiği süre boyunca saklanır.</p>
+<h2>Haklarınız ve iletişim</h2><p>Yorumunuzun kaldırılmasını veya bilgileriniz hakkında açıklama talep etmek için <a href="mailto:lorvessaa@gmail.com">lorvessaa@gmail.com</a> adresinden bize ulaşabilirsiniz.</p>
+<p><a class="btn" href="{% url 'home' %}#iletisim">İletişime dön</a></p>
+</div></section>
+{% endblock %}

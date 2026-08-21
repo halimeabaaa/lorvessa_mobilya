@@ -14,7 +14,10 @@ class StaticViewSitemap(Sitemap):
         return 'https' if site_url.startswith('https') else 'http'
 
     def items(self):
-        return ['home']
+        return ['home', 'privacy_policy']
+
+    def priority(self, item):
+        return 1.0 if item == 'home' else 0.3
 
     def location(self, item):
         return reverse(item)

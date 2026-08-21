@@ -1,0 +1,7 @@
+{% extends 'pages/base.html' %}
+{% block title %}Teşekkürler | Lorvessa Mobilya{% endblock %}
+{% block meta_description %}Yorumunuz Lorvessa Mobilya web sitesine başarıyla ulaştı.{% endblock %}
+{% block canonical %}{{ canonical_url }}{% endblock %}
+{% block robots %}noindex, follow{% endblock %}
+{% block extra_css %}<style>.result-page{min-height:78vh;display:grid;place-items:center;padding-top:9rem;text-align:center}.result-card{max-width:640px;padding:3rem;border:1px solid rgba(184,164,122,.25);background:rgba(184,164,122,.04)}.result-card p{margin:1rem 0 1.6rem}</style>{% endblock %}
+{% block content %}<section class="result-page"><div class="result-card"><p aria-hidden="true" style="font-size:2.2rem;color:var(--color-accent)">✓</p><h1>Teşekkür ederiz</h1><p>Yorumunuz başarıyla yayınlandı. Deneyiminizi paylaştığınız için teşekkür ederiz.</p><a class="btn" href="{% url 'home' %}#yorumlar">Yorumlara dön</a></div></section>{% endblock %}

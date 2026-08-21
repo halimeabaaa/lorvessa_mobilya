@@ -182,6 +182,18 @@ def build_json_ld(contact=None, services=None, about=None, request=None):
                     'text': f'Lorvessa Mobilya telefon: {phone}. Adres: {address}.',
                 },
             },
+            {
+                '@type': 'Question',
+                'name': 'Keşif, ölçülendirme ve teklif süreci nasıl ilerliyor?',
+                'acceptedAnswer': {
+                    '@type': 'Answer',
+                    'text': (
+                        'Telefon veya WhatsApp görüşmesinin ardından ihtiyaç belirlenir, '
+                        'uygun olduğunda yerinde ölçü alınır ve malzeme, tasarım, üretim '
+                        'ile montaj kapsamını içeren teklif hazırlanır.'
+                    ),
+                },
+            },
         ],
     }
 

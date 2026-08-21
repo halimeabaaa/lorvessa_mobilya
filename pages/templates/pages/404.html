@@ -1,0 +1,7 @@
+{% extends 'pages/base.html' %}
+{% block title %}Sayfa Bulunamadı | Lorvessa Mobilya{% endblock %}
+{% block meta_description %}Aradığınız sayfa bulunamadı. Lorvessa Mobilya ana sayfasına veya iletişim bölümüne dönebilirsiniz.{% endblock %}
+{% block canonical %}{{ canonical_url }}{% endblock %}
+{% block robots %}noindex, follow{% endblock %}
+{% block extra_css %}<style>.error-page{min-height:78vh;display:grid;place-items:center;padding-top:9rem;text-align:center}.error-card{max-width:680px;padding:3rem}.error-code{font:600 clamp(5rem,15vw,10rem)/.8 var(--font-serif);color:var(--color-accent-deep)}.error-card p{margin:1.3rem 0 1.8rem}.error-actions{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center}</style>{% endblock %}
+{% block content %}<section class="error-page"><div class="error-card"><p class="error-code" aria-hidden="true">404</p><h1>Aradığınız sayfa bulunamadı</h1><p>Bağlantı değişmiş veya sayfa kaldırılmış olabilir. Ana sayfaya dönebilir ya da projelerimizi inceleyebilirsiniz.</p><div class="error-actions"><a class="btn" href="{% url 'home' %}">Ana sayfa</a><a class="btn" href="{% url 'home' %}#galeri">Projelerimiz</a></div></div></section>{% endblock %}

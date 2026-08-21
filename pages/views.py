@@ -100,10 +100,37 @@ def add_comment(request):
         )
         request.session['last_comment_ts'] = time.time()
         messages.success(request, 'Yorumunuz yayınlandı. Teşekkür ederiz.')
-        return redirect(reverse('home') + '#yorumlar')
+        return redirect('thank_you')
 
     messages.error(request, 'Yorum gönderilemedi. Ad ve yorum alanlarını kontrol edin.')
     return redirect(reverse('home') + '#yorumlar')
+
+
+def thank_you(request):
+    """Başarılı yorum gönderimi sonrası açık bir onay sayfası."""
+    return render(request, 'pages/thank_you.html', {
+        'seo': default_seo(),
+        'canonical_url': request.build_absolute_uri(reverse('thank_you')),
+        'og_image': request.build_absolute_uri('/static/img/lorvessa-emblem.webp'),
+    })
+
+
+def privacy_policy(request):
+    """Ziyaretçi formu ve teknik günlükler için sade gizlilik bildirimi."""
+    return render(request, 'pages/privacy_policy.html', {
+        'seo': default_seo(),
+        'canonical_url': request.build_absolute_uri(reverse('privacy_policy')),
+        'og_image': request.build_absolute_uri('/static/img/lorvessa-emblem.webp'),
+    })
+
+
+def custom_404(request, exception):
+    """Markayla uyumlu ve ziyaretçiyi ana içeriğe geri taşıyan 404 sayfası."""
+    return render(request, 'pages/404.html', {
+        'seo': default_seo(),
+        'canonical_url': request.build_absolute_uri(request.path),
+        'og_image': request.build_absolute_uri('/static/img/lorvessa-emblem.webp'),
+    }, status=404)
 
 
 def robots_txt(request):

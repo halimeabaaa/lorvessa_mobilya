@@ -162,6 +162,15 @@
             flex-wrap: wrap;
             justify-content: flex-end;
         }
+        .menu-toggle {
+            display: none;
+            width: 44px; height: 44px;
+            border: 1px solid rgba(184,164,122,.4);
+            background: transparent; color: var(--color-accent);
+            align-items: center; justify-content: center;
+            flex-direction: column; gap: 5px; cursor: pointer;
+        }
+        .menu-toggle span { width: 21px; height: 1px; background: currentColor; transition: .2s; }
         @media (max-width: 800px) {
             .navbar { padding: 0.55rem 0.85rem 0.65rem; }
             .navbar-inner {
@@ -374,6 +383,29 @@
             .quick-contact { right: 0.75rem; bottom: 0.75rem; }
             .quick-contact a { width: 48px; height: 48px; }
         }
+        /* Mobil son katman: genel kurallardan sonra gelerek telefon görünümünü kesinleştirir. */
+        @media (max-width: 800px) {
+            .navbar { padding: .45rem .85rem; background: rgba(8,8,8,.97); }
+            .navbar-inner { flex-direction: row; align-items: center; gap: .5rem; }
+            .navbar .logo-mark { width: 54px; height: 54px; }
+            .navbar .logo-name { font-size: 1.3rem; letter-spacing: .11em; }
+            .menu-toggle { display: flex; margin-left: auto; }
+            .navbar nav {
+                position: absolute; top: 100%; left: 0; right: 0;
+                display: grid; grid-template-columns: repeat(2,minmax(0,1fr));
+                gap: 0; padding: .55rem .85rem .8rem;
+                background: rgba(8,8,8,.98); border-bottom: 1px solid rgba(184,164,122,.22);
+                opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-8px);
+                overflow: visible; mask-image: none; transition: .2s;
+            }
+            .navbar.is-open nav { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+            .navbar nav a { font-size: .76rem; letter-spacing: .055em; padding: .72rem .5rem; text-align: center; border-bottom: 1px solid rgba(184,164,122,.1); }
+            .navbar.is-open .menu-toggle span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+            .navbar.is-open .menu-toggle span:nth-child(2){opacity:0}
+            .navbar.is-open .menu-toggle span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+            section { min-height: auto; padding: 4.5rem 1.15rem 3rem; }
+            section h2 { font-size: clamp(1.75rem,7vw,2.2rem); line-height: 1.2; }
+        }
         {% block extra_css %}{% endblock %}
     </style>
     {% block head %}{% endblock %}
@@ -391,7 +423,8 @@
                 </span>
                 <span class="logo-name" itemprop="name">Lorvessa</span>
             </a>
-            <nav aria-label="Ana menü">
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Menüyü aç"><span></span><span></span><span></span></button>
+            <nav id="mainNav" aria-label="Ana menü">
                 <a href="{% url 'home' %}#anasayfa">Anasayfa</a>
                 <a href="{% url 'home' %}#hakkimizda">Hakkımızda</a>
                 <a href="{% url 'home' %}#hizmetler">Hizmetler</a>
@@ -430,6 +463,22 @@
 
     {% block extra_js %}{% endblock %}
     <script>
+    (function () {
+      var header = document.querySelector('.navbar');
+      var toggle = document.querySelector('.menu-toggle');
+      if (!header || !toggle) return;
+      toggle.addEventListener('click', function () {
+        var open = header.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? 'Menüyü kapat' : 'Menüyü aç');
+      });
+      header.querySelectorAll('nav a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          header.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }());
     /* Eski service worker bozuk medya adreslerini cache'liyordu; tamamen kaldır. */
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {

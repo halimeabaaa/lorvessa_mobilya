@@ -160,8 +160,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 _static_backend = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-if _HAS_WHITENOISE and not DEBUG:
-    _static_backend = 'whitenoise.storage.CompressedStaticFilesStorage'
+# WhiteNoise dosyaları servis etmeye devam eder. Render'ın paralel sıkıştırma
+# aşaması bazı Django admin dosyalarında FileNotFoundError üretebildiği için
+# collectstatic depolamasını deterministik ve sıkıştırmasız tutuyoruz.
 
 STORAGES = {
     'default': {

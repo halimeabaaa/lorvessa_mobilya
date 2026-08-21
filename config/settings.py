@@ -97,12 +97,23 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Veritabanı: varsayılan SQLite. MySQL için USE_SQLITE=false ve MYSQL_* doldurun.
+# Canlıda DATABASE_URL varsa kalıcı PostgreSQL kullanılır. SQLite yalnızca yerel
+# geliştirme / geçici fallback içindir; Render'ın dosya sistemi kalıcı değildir.
+DATABASE_URL = os.environ.get('DATABASE_URL', '').strip()
 USE_SQLITE = os.environ.get('USE_SQLITE', 'true').lower() in ('1', 'true', 'yes')
-if os.environ.get('RENDER') and os.environ.get('USE_SQLITE', 'true').lower() not in ('0', 'false', 'no'):
-    USE_SQLITE = True
 
-if USE_SQLITE:
+if DATABASE_URL:
+    import dj_database_url
+
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=not DEBUG,
+        )
+    }
+elif USE_SQLITE:
     _sqlite_name = Path('/tmp/lorvessa.sqlite3') if os.environ.get('RENDER') else (BASE_DIR / 'db.sqlite3')
     DATABASES = {
         'default': {

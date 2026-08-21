@@ -14,4 +14,3 @@ python manage.py collectstatic --noinput
 echo "collected static/media: $(find staticfiles/media -type f 2>/dev/null | wc -l)"
 python manage.py migrate --noinput
 python manage.py ensure_superuser
-python manage.py seed_media_catalog

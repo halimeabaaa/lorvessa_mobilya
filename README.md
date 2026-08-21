@@ -62,4 +62,18 @@ Admin panel: http://127.0.0.1:8000/admin/
 - **Galeri öğeleri**: Her iş için resim, başlık, açıklama ve sıra ekleyin.
 - **İletişim bilgileri**: Adres, telefon, e-posta girin.
 
-Resimler `media/slider/` ve `media/gallery/` altında saklanır; geliştirme ortamında Django otomatik servis eder.
+Yerel geliştirmede resimler `static/media/slider/` ve `static/media/gallery/`
+altında saklanır. Canlı ortamda bilgisayardan yüklenen resimlerin deploy veya
+sunucu yeniden başlatmasında kaybolmaması için Cloudinary kullanılır.
+
+Render servisinin **Environment** bölümüne Cloudinary hesabınızdan aldığınız
+tek bir değişken ekleyin:
+
+```
+CLOUDINARY_URL=cloudinary://API_KEY:API_SECRET@CLOUD_NAME
+```
+
+Sonraki deploy'dan itibaren admin panelinden seçilen yeni resimler kalıcı olarak
+Cloudinary'ye yüklenir. GitHub'da bulunan eski resimler de aynı şekilde görünmeye
+devam eder. `CLOUDINARY_URL` değerini GitHub'a veya `.env` dosyasını repoya
+yüklemeyin.

@@ -55,6 +55,12 @@ INSTALLED_APPS = [
     'pages.apps.PagesConfig',
 ]
 
+# Render'ın yerel diski geçicidir. CLOUDINARY_URL tanımlandığında admin
+# panelinden yüklenen medya dosyalarını kalıcı Cloudinary deposunda sakla.
+CLOUDINARY_URL = os.environ.get('CLOUDINARY_URL', '').strip()
+if CLOUDINARY_URL:
+    INSTALLED_APPS.insert(INSTALLED_APPS.index('django.contrib.staticfiles'), 'cloudinary_storage')
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.middleware.gzip.GZipMiddleware',
@@ -166,11 +172,17 @@ STORAGES = {
     },
 }
 
+if CLOUDINARY_URL:
+    STORAGES['default'] = {
+        'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage',
+    }
+
 WHITENOISE_MAX_AGE = 60 * 60 * 24 * 30
 WHITENOISE_USE_FINDERS = DEBUG
 WHITENOISE_AUTOREFRESH = DEBUG
 
-# Görseller static/media altında (WhiteNoise ile Render'da garanti sunulur)
+# Git ile gelen mevcut görseller static/media altında sunulur. CLOUDINARY_URL
+# yoksa yeni yüklemeler de burada tutulur (yerel geliştirme için uygundur).
 MEDIA_ROOT = BASE_DIR / 'static' / 'media'
 MEDIA_URL = '/static/media/'
 
